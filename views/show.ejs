@@ -14,9 +14,15 @@
         <h1>Pokédex</h1>
         <h2><%= pokemonStats.name %></h2>
         <div class="photo">
-            <img src=<%= %> alt="">
+            <img src=<%=pokemonStats.img %> alt="">
         </div>
-        <h5></h5>
+        <h2><u>STATS:</u></h2>
+        <ul>
+            <li><strong>TYPE:</strong><%= pokemonStats.type.join(", ") %> </li>
+            <li><strong>HP:</strong><%= pokemonStats.stats.hp %> </li>
+            <li><strong>ATTACK:</strong><%= pokemonStats.stats.attack %> </li>
+            <li><strong>DEFENSE:</strong><%= pokemonStats.stats.defense %> </li>
+        </ul>
     </div>
 </body>
 </html>

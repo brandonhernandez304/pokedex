@@ -7,8 +7,14 @@ const port = 3000;
 //INIT EXPRESS
 const app = express()
 //MIDWARE
-
+//allows access to req.body
+app.use(express.urlencoded({ extended: false }))
+//allow access to public folder w express static
+app.use(express.static('public'))
+///////////////
 //DEFINE ROUTES
+///////////////
+//MAIN
 app.get("/",(req,res)=>{
     res.send("Pokédex!")
 })
