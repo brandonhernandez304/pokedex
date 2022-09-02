@@ -1,7 +1,7 @@
 //DEPENDENCIES/PACKAGES
 const express = require('express');
 const pokemon = require('./models/pokemon')
-
+const bodyParser = require('body-parser')
 //PORT
 const port = 3000;
 //INIT EXPRESS
@@ -28,19 +28,67 @@ app.get("/pokemon",(req,res)=>{
         allPokemon: pokemon
     });
 })
-//N
-
+//NEW
+app.get("/pokemon/new",(req,res)=>{
+    res.render("new.ejs",{
+        newPokemon: pokemon
+    })
+})
 //D
+app.delete("/pokemon/:id",(res,req)=>{
+    pokemon.splice(req.params.id, 1)
+    res.redirect("/pokemon/")
+})
+//UPDATE
+app.put("/pokemon/:id",(req,res)=>{
+    let statsObject={
+       hp: req.body.hp,
+       attack: req.body.attack,
+       defense: req.body.defense,
+   };
+   let type = req.body.type;
+   let typeArr = type.splice(', ')
+   let newPokemon ={
+       id: req.body.id,
+       name: req.body.name,
+       img: req.body.img,
+       type: typeArr,
+       stats: statsObject
+   }
+   pokemon.push(newPokemon)//push the new pokemon onto original index
+   res.redirect("/pokemon/")
+})
 
-//U
-
-//C
-
+//CREATE NEW
+app.post("/pokemon/",(req,res)=>{
+     let statsObject={
+        hp: req.body.hp,
+        attack: req.body.attack,
+        defense: req.body.defense,
+    };
+    let type = req.body.type;
+    let typeArr = type.splice(', ')
+    let newPokemon ={
+        id: req.body.id,
+        name: req.body.name,
+        img: req.body.img,
+        type: typeArr,
+        stats: statsObject
+    }
+    pokemon.push(newPokemon)//push the new pokemon onto original index
+    res.redirect("/pokemon/")
+})
 //E
-
+app.get("/pokemon/:id/edit", (req,res)=>{
+    res.render("pokemon_edit.ejs",{
+        pokemon: pokemon[req.params.id],
+        pokeIndex: req.params.id,
+    })
+})
 //SHOW 
 app.get("/pokemon/:id",(req,res)=>{
-    res.render('show.ejs',{pokemonStats: pokemon[req.params.id]
+    res.render('show.ejs',{
+        pokemonStats: pokemon[req.params.id]
     });
 });
 //LISTEN
