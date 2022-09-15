@@ -1,6 +1,7 @@
 //DEPENDENCIES/PACKAGES
 const express = require('express');
 const pokemon = require('./models/pokemon')
+const methodOverride = require("method-override")
 const bodyParser = require('body-parser')
 //PORT
 const port = 3000;
@@ -11,6 +12,7 @@ const app = express()
 app.use(express.urlencoded({ extended: false }))
 //allow access to public folder w express static
 app.use(express.static('public'))
+app.use(methodOverride("_method"))
 ///////////////
 //DEFINE ROUTES
 ///////////////
@@ -25,29 +27,30 @@ app.get("/",(req,res)=>{
 //I
 app.get("/pokemon",(req,res)=>{
     res.render("index.ejs",{
-        allPokemon: pokemon
+        pokedex: pokemon
     });
 })
 //NEW
 app.get("/pokemon/new",(req,res)=>{
     res.render("new.ejs",{
-        newPokemon: pokemon
+        pokedex: pokemon
     })
 })
 //D
 app.delete("/pokemon/:id",(res,req)=>{
     pokemon.splice(req.params.id, 1)
-    res.redirect("/pokemon/")
+    res.redirect("/pokemon")
 })
 //UPDATE
 app.put("/pokemon/:id",(req,res)=>{
+    let type = req.body.type;
+    let typeArr = type.split(', ')
     let statsObject={
        hp: req.body.hp,
        attack: req.body.attack,
        defense: req.body.defense,
    };
-   let type = req.body.type;
-   let typeArr = type.splice(', ')
+  
    let newPokemon ={
        id: req.body.id,
        name: req.body.name,
@@ -55,19 +58,19 @@ app.put("/pokemon/:id",(req,res)=>{
        type: typeArr,
        stats: statsObject
    }
-   pokemon.push(newPokemon)//push the new pokemon onto original index
-   res.redirect("/pokemon/")
+   pokemon[req.params.id] = newPokemon//push the new pokemon onto original index
+   res.redirect("/pokemon")
 })
 
 //CREATE NEW
-app.post("/pokemon/",(req,res)=>{
+app.post("/pokemon",(req,res)=>{
+    let type = req.body.type;
+    let typeArr = type.splice(', ')
      let statsObject={
         hp: req.body.hp,
         attack: req.body.attack,
         defense: req.body.defense,
     };
-    let type = req.body.type;
-    let typeArr = type.splice(', ')
     let newPokemon ={
         id: req.body.id,
         name: req.body.name,
@@ -76,19 +79,19 @@ app.post("/pokemon/",(req,res)=>{
         stats: statsObject
     }
     pokemon.push(newPokemon)//push the new pokemon onto original index
-    res.redirect("/pokemon/")
+    res.redirect("/pokemon")
 })
 //E
 app.get("/pokemon/:id/edit", (req,res)=>{
-    res.render("pokemon_edit.ejs",{
+    res.render("edit.ejs",{
         pokemon: pokemon[req.params.id],
-        pokeIndex: req.params.id,
+        pokemonId: req.params.id
     })
 })
 //SHOW 
 app.get("/pokemon/:id",(req,res)=>{
     res.render('show.ejs',{
-        pokemonStats: pokemon[req.params.id]
+        pokemonId: pokemon[req.params.id]
     });
 });
 //LISTEN
