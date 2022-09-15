@@ -12,16 +12,16 @@
 <body>
     <div class="container">
         <h1>Pokédex</h1>
-        <h2><%= pokemonStats.name %></h2>
+        <h2><%=pokemonId.name%> %></h2>
         <div class="photo">
-            <img src=<%=pokemonStats.img %> alt="">
+            <img src=<%=pokemonId.img %> alt="">
         </div>
         <h2><u>STATS:</u></h2>
         <ul>
-            <li><strong>TYPE:</strong><%= pokemonStats.type %> </li>
-            <li><strong>HP:</strong><%= pokemonStats.stats.hp %> </li>
-            <li><strong>ATTACK:</strong><%= pokemonStats.stats.attack %> </li>
-            <li><strong>DEFENSE:</strong><%= pokemonStats.stats.defense %> </li>
+            <li><strong>TYPE:</strong><%= pokemonId.type %> </li>
+            <li><strong>HP:</strong><%= pokemonId.stats.hp %> </li>
+            <li><strong>ATTACK:</strong><%= pokemonId.stats.attack %> </li>
+            <li><strong>DEFENSE:</strong><%= pokemonId.stats.defense %> </li>
         </ul>
     </div>
 </body>
