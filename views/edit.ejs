@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheet.css">
     <title>Edit Pokémon</title>
 </head>
 <body>
@@ -12,6 +13,7 @@
         <!--  NOTE: the form is pre-populated with values for the server-->
         Name: <input type="text" name="name" value="<%=pokemon.name%>" /><br />
         TYPE:<input type="text" name="type" value="<%=pokemon.type%>" /><br />
+        Image: <input type="text" placeholder="img (url)"/><br />
         HP: <input type="text" name="hp" value="<%=pokemon.stats.hp%>" /><br />
         ATTACK: <input type="text" name="attack" value="<%=pokemon.stats.attack%>" /><br />
         DEFENSE: <input type="text" name="defense" value="<%=pokemon.stats.defense%>" /><br />

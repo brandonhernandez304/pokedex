@@ -1,6 +1,6 @@
 //DEPENDENCIES/PACKAGES
 const express = require('express');
-const pokemon = require('./models/pokemon')
+const pokemon = require('./models/pokemon.js')
 const methodOverride = require("method-override")
 //PORT
 const port = 3000;
